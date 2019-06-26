@@ -7,7 +7,7 @@ export const FETCH_QUESTIONS_FAIL = "FETCH_QUESTOINS_FAIL";
 export const grabFeed = ()=> dispatch => {
     dispatch({ type: FETCH_QUESTIONS_START})
     axios
-        .get('https://advice-giver.herokuapp.com/messages/')
+        .get('https://advice-giver.herokuapp.com/messages')
         .then(res =>
             dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: res.data})
             )

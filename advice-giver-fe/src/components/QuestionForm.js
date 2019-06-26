@@ -6,6 +6,15 @@ class QuestionForm extends React.Component {
         return (
             <Form>
                 <FormGroup>
+                    <Label for="questionTopic">Topic</Label>
+                    <Input type="select" name="topic" id="questionTopic">
+                        <option>Business</option>
+                        <option>Tech</option>
+                        <option>Career</option>
+                        <option>Education</option>
+                    </Input>
+                </FormGroup>
+                <FormGroup>
                     <Label for="questionTitle">Title</Label>
                     <Input type="text" name="title" id="questionTitle" placeholder="Paraphrased version of your question"/>
                 </FormGroup>
