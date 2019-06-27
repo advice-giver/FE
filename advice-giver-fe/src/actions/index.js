@@ -31,10 +31,7 @@ export const postQ = (question) => dispatch =>{
     axios
         .post('https://advice-giver.herokuapp.com/messages', question)
         .then(res => 
-            dispatch({ 
-                type: POST_QUESTION_SUCCESS, 
-                payload: res.data 
-            })
+            dispatch({ type: POST_QUESTION_SUCCESS })
             )
         .catch(err => dispatch({type: POST_QUESTION_FAIL, payload: err}))
 };
