@@ -1,5 +1,5 @@
 import React from 'react';
-import requiresAuth from './requiresAuth';
+import RequiresAuth from './RequiresAuth';
 
 class Navigation extends React.Component {
     render(){
@@ -14,4 +14,4 @@ class Navigation extends React.Component {
     }
 }
 
-export default requiresAuth(Navigation);
+export default RequiresAuth(Navigation);

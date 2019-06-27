@@ -1,14 +1,15 @@
 import React from 'react';
-import requiresAuth from './requiresAuth';
+import RequiresAuth from './RequiresAuth';
 import { connect } from 'react-redux';
+import { grabfeed } from '../actions'
+
 
 class User extends React.Component {
     constructor(props) {
         super(props);
-    }
 
+    }
     render() {
-        console.log(this.props)
         return(
             <>
                 <div className="user-dash">
@@ -20,10 +21,11 @@ class User extends React.Component {
     }
 }
 
+
 const mapStateToProps = state => {
     return {
         user: state.user
     }
 }
 
-export default connect(mapStateToProps, {})(requiresAuth(User));
+export default connect(mapStateToProps, {})(RequiresAuth(User));
