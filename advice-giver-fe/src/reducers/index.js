@@ -1,35 +1,48 @@
-import { LOGGING_IN, LOGIN_SUCCESS, REGISTERING, REGISTER_SUCCESS } from '../actions';
+import { FETCH_QUESTIONS_START, FETCH_QUESTIONS_SUCCESS, FETCH_QUESTIONS_FAIL } from '../actions'
 
 const initialState = {
-    registering: false,
-    loggingIn: false
+    user:{
+        isLoggedIn: false,
+        id: '',
+        username: '',
+        password: '',
+        adviceGiver: 0,
+        expertise: null,
+        yearsOfExperience: null,
+        age: null,
+        email: "",
+        token: "",
+    },
+    fetchingQuestions: false,
+    userQuestions:[],
+    error:''
 }
 
-export const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case LOGGING_IN:
+function reducer(state = initialState, action){
+    // console.log('reducer:', action);
+    switch(action.type){
+        case FETCH_QUESTIONS_START:
             return {
                 ...state,
-                loggingIn: true
+                fetchingQuestions:true,
+                error:''
             }
-        case LOGIN_SUCCESS:
-            console.log(action.payload);
+        case FETCH_QUESTIONS_SUCCESS:
             return {
                 ...state,
-                loggingIn: false,
-                user: action.payload
+                fetchingQuestions:false,
+                userQuestions:action.payload,
+                error:''
             }
-        case REGISTERING:
+        case FETCH_QUESTIONS_FAIL:
             return {
                 ...state,
-                registering: true
-            }
-        case REGISTER_SUCCESS:
-            return {
-                ...state,
-                registering: false
-            }
+                fetchingQuestions:true,
+                error:action.payload                
+            };
         default:
             return state;
     }
 }
+
+export default reducer;
