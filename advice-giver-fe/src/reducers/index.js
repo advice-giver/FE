@@ -1,12 +1,22 @@
-import { FETCH_QUESTIONS_START, FETCH_QUESTIONS_SUCCESS, FETCH_QUESTIONS_FAIL } from '../actions'
+import { 
+    FETCH_QUESTIONS_START, 
+    FETCH_QUESTIONS_SUCCESS, 
+    FETCH_QUESTIONS_FAIL, 
+    LOGGING_IN, 
+    LOGIN_SUCCESS, 
+    REGISTERING, 
+    REGISTER_SUCCESS,
+    POST_QUESTION_START,
+    POST_QUESTION_SUCCESS,
+    POST_QUESTION_FAIL
+} from '../actions'
 
 const initialState = {
-    user:{
-        isLoggedIn: false,
+    user: {
         id: '',
         username: '',
         password: '',
-        adviceGiver: 0,
+        adviceGiver: false,
         expertise: null,
         yearsOfExperience: null,
         age: null,
@@ -17,11 +27,11 @@ const initialState = {
     userQuestions:[],
     error:'',
     registering: false,
+    posting: false,
     loggingIn: false
 }
 
 function reducer(state = initialState, action){
-    // console.log('reducer:', action);
     switch(action.type){
         case LOGGING_IN:
             return {
@@ -54,8 +64,8 @@ function reducer(state = initialState, action){
         case FETCH_QUESTIONS_SUCCESS:
             return {
                 ...state,
-                fetchingQuestions:false,
-                userQuestions:action.payload,
+                fetchingQuestions: false,
+                userQuestions: action.payload,
                 error:''
             }
         case FETCH_QUESTIONS_FAIL:
@@ -63,7 +73,26 @@ function reducer(state = initialState, action){
                 ...state,
                 fetchingQuestions:true,
                 error:action.payload                
-            };
+            }
+        case POST_QUESTION_START:
+            return {
+                ...state,
+                posting: true
+            }
+        case POST_QUESTION_SUCCESS:
+            console.log(action.payload)
+            return {
+                ...state,
+                posting: false,
+                error: ''
+                // userQuestions: [...state.userQuestions, action.payload]
+            }
+        case POST_QUESTION_FAIL:
+            return {
+                ...state,
+                posting: false,
+                error: action.payload
+            }
         default:
             return state;
     }
