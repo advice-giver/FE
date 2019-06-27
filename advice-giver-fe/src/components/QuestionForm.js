@@ -1,11 +1,13 @@
 import React from 'react';
 import {  Button, Form, FormGroup, Label, Input, FormText, Row, Col } from 'reactstrap';
-import requiresAuth from './requiresAuth';
+import RequiresAuth from './RequiresAuth';
+import { connect } from 'react-redux';
+import { postQ } from '../actions';
 
 class QuestionForm extends React.Component {
     state = {
         question:{
-            user_id: 2,
+            user_id: this.props.user.id,
             type:'select',
             title:'',
             message:'',
@@ -17,6 +19,7 @@ class QuestionForm extends React.Component {
     changeHandler = e => {
         e.preventDefault();
         e.persist();
+        console.log(this.state.question)
         this.setState( prevState =>({
             question:{
             ...prevState.question,
@@ -25,14 +28,18 @@ class QuestionForm extends React.Component {
         }));
     }
 
-    postQ = (e,question) => {
+    postQuestion = (e) => {
         e.preventDefault();
-        this.props.postQ(question)
+        const id = parseInt(this.props.user.id)
+        this.props.postQ({...this.state.question,
+            user_id: id
+        })
     }
 
     render(){
+        console.log(this.props.user.id)
         return (
-            <Form onSubmit={e => this.postQ(e, this.question)}>
+            <Form onSubmit={e => this.postQuestion(e)}>
                 <FormGroup>
                     <Label for="questionTopic">Topic</Label>
                     <Input onChange={this.changeHandler} type="select" name="type" id="questionTopic" value={this.state.question.type}>
@@ -79,5 +86,11 @@ class QuestionForm extends React.Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
 
-export default requiresAuth(QuestionForm);
+
+export default connect(mapStateToProps, { postQ })(QuestionForm);
