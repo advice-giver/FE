@@ -6,7 +6,7 @@ import Navigation from './components/Navigation';
 import QuestionForm from '../src/components/QuestionForm';
 // import QuestionFeed from './components/QuestionFeed';
 import { grabFeed, postQ } from "./actions";
-
+import { Route } from 'react-router-dom';
 
 class App extends React.Component {
   state = {
@@ -44,8 +44,6 @@ class App extends React.Component {
 
 
   render(){
-
-
     return (
       <div className="App">
         <Navigation/>
@@ -59,6 +57,16 @@ class App extends React.Component {
             </div>
           ))}
         </div>
+        
+        <Route exact path="/" render={props =>
+                <Login {...props} />
+            }>
+        </Route>
+
+        <Route exact path="/register" render={props => 
+                <Register {...props} />
+            }>
+        </Route>
       </div>
     );
   }
